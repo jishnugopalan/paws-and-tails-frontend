@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paws_and_tails/customer/customer_dashboard.dart';
 import 'package:paws_and_tails/login.dart';
 import 'package:paws_and_tails/registration.dart';
+import 'package:paws_and_tails/shop/add_product.dart';
 import 'package:paws_and_tails/shop/shop_dashboard.dart';
 
 import 'introslider.dart';
@@ -22,13 +23,13 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.red,
       ),
-      home: IntroSlider(),
+      home: LoginPage(),
       routes: {
         '/registration':(context)=>RegistrationPage(),
         '/login':(context)=>LoginPage(),
         '/customer':(context)=>CustomerDashboard(),
-        '/shop':(context)=>ShopDashboard()
-
+        '/shop':(context)=>ShopDashboard(),
+        '/add-product':(context)=>AddProducts()
       },
     );
   }

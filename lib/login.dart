@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 //import 'package:echosentry/services/registration_services.dart';
 import 'package:flutter/material.dart';
 import 'package:paws_and_tails/services/registration_service.dart';
-
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -19,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   String email="",password="";
   RegistrationService service=RegistrationService();
+  final storage = FlutterSecureStorage();
 
   showError(String content,String title){
     showDialog(
@@ -42,7 +43,61 @@ class _LoginPageState extends State<LoginPage> {
           );
         });
   }
-  // RegistrationService service=RegistrationService();
+  Future<void> checkAuthentication() async {
+    try{
+      Map<String, String> allValues = await storage.readAll();
+      if(allValues["token"]!.isEmpty){
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('/intro', (Route<dynamic> route) => false);
+      }
+      else{
+        print("token is here");
+        Map<String, String> allValues = await storage.readAll();
+        String normalizedSource = base64Url.normalize(allValues["token"]!.split(".")[1]);
+        String userid= json.decode(utf8.decode(base64Url.decode(normalizedSource)))["_id"];
+        this.getUser(userid);
+      }
+
+    }catch(e){
+
+    }
+  }
+  Future<void> getUser(String userid) async {
+    try{
+
+      final Response? response=await service.getUser(userid);
+      print(response);
+      if(response?.data["usertype"]=="customer"){
+        print("c");
+        //Navigator.pushNamedAndRemoveUntil(context, '/customer', (route) => false);
+        Navigator.pushNamedAndRemoveUntil(context, '/customer', (route) => false);
+
+      }
+      else if(response?.data["usertype"]=="shop"){
+        print("S");
+        //Navigator.pushNamedAndRemoveUntil(context, '/shop', (route) => false);
+        Navigator.pushNamedAndRemoveUntil(context, '/shop', (route) => false);
+
+
+      }
+
+    }on DioError catch(e){
+      if (e.response != null) {
+        print(e.response!.data);
+
+        showError("Login failed", "Please login again");
+
+
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        showError("Error occured,please try againlater","Oops");
+      }
+
+    }
+
+
+  }
+
   login() async {
     if(_formkey.currentState!.validate()){
       print(email+""+password);
@@ -53,6 +108,11 @@ class _LoginPageState extends State<LoginPage> {
       try{
         final Response? response=await service.loginUser(user);
         print(response!.data);
+        Map<String, String> allValues = await storage.readAll();
+        String normalizedSource = base64Url.normalize(allValues["token"]!.split(".")[1]);
+        String userid= json.decode(utf8.decode(base64Url.decode(normalizedSource)))["_id"];
+        print(userid);
+        await storage.write(key: "userid", value: userid);
         // Map<String, dynamic> s=jsonDecode(response.data);
         if(response.data["user"]["usertype"]=="customer"){
           print("c");
@@ -85,7 +145,13 @@ class _LoginPageState extends State<LoginPage> {
 
     }
   }
+  @override
+  void initState(){
+    super.initState();
+    this.checkAuthentication();
 
+
+  }
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
