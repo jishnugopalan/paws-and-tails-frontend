@@ -77,6 +77,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         });
   }
   Future<void> signUp() async {
+    print("signup called");
     if(_formkey.currentState!.validate()){
       if(usertype=="customer"){
         var user=jsonEncode({
@@ -93,6 +94,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         print(user);
         try{
           final response=await service.registerUser(user);
+          print(response);
           showError("Registration process completed", "Registration Successful");
         }on DioError catch(e){
           if (e.response != null) {
@@ -155,6 +157,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       }
 
     }
+
   }
   @override
   Widget build(BuildContext context) {

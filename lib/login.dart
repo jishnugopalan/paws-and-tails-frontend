@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
       else if(response?.data["usertype"]=="shop"){
         print("S");
         //Navigator.pushNamedAndRemoveUntil(context, '/shop', (route) => false);
-        Navigator.pushNamedAndRemoveUntil(context, '/shop', (route) => false);
+        Navigator.pushNamedAndRemoveUntil(context, '/shopdashboard', (route) => false);
 
 
       }
@@ -123,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
         else if(response.data["user"]["usertype"]=="shop"){
           print("S");
           //Navigator.pushNamedAndRemoveUntil(context, '/shop', (route) => false);
-          Navigator.pushNamed(context, '/shop');
+          Navigator.pushNamed(context, '/shopdashboard');
 
 
         }

@@ -4,7 +4,9 @@ import 'package:paws_and_tails/login.dart';
 import 'package:paws_and_tails/registration.dart';
 import 'package:paws_and_tails/shop/add_product.dart';
 import 'package:paws_and_tails/shop/shop_dashboard.dart';
+import 'package:paws_and_tails/shop/vieworders.dart';
 
+import 'customer/order.dart';
 import 'introslider.dart';
 
 void main() {
@@ -28,8 +30,12 @@ class MyApp extends StatelessWidget {
         '/registration':(context)=>RegistrationPage(),
         '/login':(context)=>LoginPage(),
         '/customer':(context)=>CustomerDashboard(),
-        '/shop':(context)=>ShopDashboard(),
-        '/add-product':(context)=>AddProducts()
+        '/shopdashboard':(context)=>ShopDashboard(),
+        '/intro':(context)=>IntroSlider(),
+        '/add-product':(context)=>AddProducts(),
+        '/customerdashboard':(context)=>CustomerDashboard(),
+        '/order':(context)=>OrderPage(),
+        '/viewordervendor':(context)=>ViewOrderVendor()
       },
     );
   }

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:paws_and_tails/shop/shopmenu.dart';
+import 'package:flutter/material.dart';
 
 
 class ShopDashboard extends StatefulWidget {
@@ -15,8 +15,10 @@ class _ShopDashboardState extends State<ShopDashboard> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Home"),
+
       ),
       drawer: ShopMenu(menuindex: 1,),
+
     );
   }
 }

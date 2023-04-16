@@ -11,6 +11,7 @@ class ShopMenu extends StatefulWidget {
 class _ShopMenuState extends State<ShopMenu> {
   bool isHome=false;
   bool isAddProduct=false;
+  bool isOrder=false;
   final storage = FlutterSecureStorage();
 
   @override
@@ -21,6 +22,10 @@ class _ShopMenuState extends State<ShopMenu> {
     }
     else if(widget.menuindex==2){
       isAddProduct=true;
+
+    }
+    else if(widget.menuindex==3){
+      isOrder=true;
 
     }
 
@@ -35,8 +40,7 @@ class _ShopMenuState extends State<ShopMenu> {
             decoration: BoxDecoration(
                 color: Colors.green,
                 image: DecorationImage(
-
-                    fit: BoxFit.fitHeight,
+                    fit: BoxFit.cover,
                     image: AssetImage('assets/images/signup2.png'))), child: null,
           ),
           Container(
@@ -47,7 +51,7 @@ class _ShopMenuState extends State<ShopMenu> {
             leading: Icon(Icons.home,),
             title: listtileText("Home"),
             onTap: () => {
-              Navigator.pushNamed(context, '/shop')
+              Navigator.pushNamed(context, '/shopdashboard')
             },
             selected: isHome,
             selectedTileColor: Colors.black12,
@@ -55,19 +59,39 @@ class _ShopMenuState extends State<ShopMenu> {
 
           ),
           ListTile(
-            leading: Icon(Icons.shopping_bag,),
+            leading: Icon(Icons.energy_savings_leaf_sharp,),
             title: listtileText("Add Products"),
             onTap: (){
-              setState(() {
-                isHome=false;
-                isAddProduct=true;
+             setState(() {
+               isHome=false;
+               isAddProduct=true;
 
-              });
-              Navigator.pushNamed(context, '/add-product');
+             });
+             Navigator.pushNamed(context, '/add-product');
 
             },
 
             selected:isAddProduct,
+            selectedTileColor: Colors.black12,
+            selectedColor: Colors.green[800],
+
+          ),
+          ListTile(
+            leading: Icon(Icons.shopping_bag,),
+            title: listtileText("orders"),
+            onTap: () async {
+              setState(() {
+                isHome=false;
+                isAddProduct=false;
+                isOrder=true;
+
+              });
+              Navigator.pushNamed(context, '/viewordervendor');
+
+
+            },
+
+            selected:isOrder,
             selectedTileColor: Colors.black12,
             selectedColor: Colors.green[800],
 
