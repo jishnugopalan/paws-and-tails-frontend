@@ -179,6 +179,58 @@ class _CustomerDashboardState extends State<CustomerDashboard> {
           //
           //   ),
           // ),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+            child: Text(
+              'Discover',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 24.0,
+              ),
+            ),
+          ),
+          Container(
+            height: 200.0,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.all(10),
+              children: <Widget>[
+
+                GestureDetector(
+                  child: Card(
+                    child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.lightBlue[100],
+                        ),
+                        width: 200,
+                        alignment: Alignment.center,
+
+                        child: Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.account_circle_sharp,size: 50,),
+                              Text("Advisor"),
+                            ],
+                          ),
+                        )
+                    ),
+                  ),
+                  onTap: (){
+                    Navigator.pushNamed(context, '/viewalladviser');
+                  },
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+
+
+
+              ],
+
+            ),
+          ),
 
           Container(
             padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),

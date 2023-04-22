@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-class CustomerMenu extends StatefulWidget {
-  const CustomerMenu({Key? key}) : super(key: key);
+class AdminMenu extends StatefulWidget {
+  const AdminMenu({Key? key}) : super(key: key);
 
   @override
-  State<CustomerMenu> createState() => _CustomerMenuState();
+  State<AdminMenu> createState() => _AdminMenuState();
 }
 
-class _CustomerMenuState extends State<CustomerMenu> {
+class _AdminMenuState extends State<AdminMenu> {
   final storage = FlutterSecureStorage();
   @override
   Widget build(BuildContext context) {
@@ -20,19 +19,18 @@ class _CustomerMenuState extends State<CustomerMenu> {
             decoration: BoxDecoration(
                 color: Colors.green,
                 image: DecorationImage(
-
-                    fit: BoxFit.fitHeight,
+                    fit: BoxFit.cover,
                     image: AssetImage('assets/images/signup2.png'))), child: null,
           ),
-          // Container(
-          //   alignment: Alignment.center,
-          //   child: Text("Build Your Online Shop",style: TextStyle(fontWeight: FontWeight.w800,fontSize: 20),),
-          // ),
+          Container(
+            alignment: Alignment.center,
+            child: Text("Build Your Online Shop",style: TextStyle(fontWeight: FontWeight.w800,fontSize: 20),),
+          ),
           ListTile(
             leading: Icon(Icons.home,),
             title: listtileText("Home"),
             onTap: () => {
-              Navigator.pushNamed(context, '/customer')
+              Navigator.pushNamed(context, '/admindashboard')
             },
             //selected: isHome,
             selectedTileColor: Colors.black12,
@@ -40,10 +38,10 @@ class _CustomerMenuState extends State<CustomerMenu> {
 
           ),
           ListTile(
-            leading: Icon(Icons.question_mark,),
-            title: listtileText("My Questions"),
+            leading: Icon(Icons.account_circle_sharp,),
+            title: listtileText("Add adviser"),
             onTap: () => {
-              Navigator.pushNamed(context, '/viewquestions')
+              Navigator.pushNamed(context, '/addadviser')
             },
             //selected: isHome,
             selectedTileColor: Colors.black12,
